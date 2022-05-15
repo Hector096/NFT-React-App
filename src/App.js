@@ -1,26 +1,20 @@
+import React, { useEffect } from 'react';
 import './App.css';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { clearMessage } from './redux/action/message';
+import Home from './component/Home';
 
 function App() {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    dispatch(clearMessage()); // clear message when changing location
+  }, [dispatch, location]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit
-          {' '}
-          <code>src/App.js</code>
-          {' '}
-          and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Home />
   );
 }
 

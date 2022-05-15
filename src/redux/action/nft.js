@@ -13,18 +13,17 @@ import {
 
 import NftService from '../../service/nft.service';
 
-// eslint-disable-next-line max-len
 export const addNft = (values) => (dispatch) => NftService.addNft(values).then(
   (response) => {
     console.log(response.data);
     dispatch({
       type: NFT_ADD_SUCCESS,
-      payload: response.data.product,
+      payload: response.data,
     });
 
     dispatch({
       type: SET_MESSAGE,
-      payload: response.data.message,
+      payload: response.data,
     });
 
     return Promise.resolve();
@@ -49,7 +48,6 @@ export const addNft = (values) => (dispatch) => NftService.addNft(values).then(
   },
 );
 
-// eslint-disable-next-line max-len
 export const updateNft = (values, id) => (dispatch) => NftService.updateNft(values, id).then(
   (response) => {
     dispatch({
@@ -59,7 +57,7 @@ export const updateNft = (values, id) => (dispatch) => NftService.updateNft(valu
 
     dispatch({
       type: SET_MESSAGE,
-      payload: response.data.message,
+      payload: response.data,
     });
 
     return Promise.resolve();
@@ -88,12 +86,12 @@ export const fetchNfts = () => (dispatch) => NftService.fetchNfts().then(
   (response) => {
     dispatch({
       type: NFT_FETCH_SUCCESS,
-      payload: { products: response.data.products },
+      payload: { nfts: response.data },
     });
 
     dispatch({
       type: SET_MESSAGE,
-      payload: response.data.message,
+      payload: response.data,
     });
 
     return Promise.resolve();
