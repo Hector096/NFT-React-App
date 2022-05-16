@@ -6,7 +6,7 @@ const deleteNft = (id) => axios.delete(`${API_URL}/nft/${id}`);
 
 const addNft = (values) => axios.post(`${API_URL}/nft`, values);
 
-const updateNft = (values, id) => axios.post(`${API_URL}/nft/${id}`, values);
+const updateNft = (values, id) => axios.put(`${API_URL}/nft/${id}`, values);
 
 const fetchNfts = () => axios.get(`${API_URL}/nft`);
 

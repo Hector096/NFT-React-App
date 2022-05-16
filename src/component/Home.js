@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Card, Row, PageHeader, Button, Typography, Image, Modal,
+  Card, Row, Button, Typography, Image, Modal,
 } from 'antd';
+import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchNfts } from '../redux/action/nft';
+import { deleteNft, fetchNfts } from '../redux/action/nft';
+import NewNft from './NewNft';
 
 export default function Home() {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+  const [editVisible, setEditVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const alert = useAlert();
   const [modalData, setModalData] = useState('');
   const nfts = useSelector((state) => state.nfts.nfts);
   const { Meta } = Card;
@@ -26,26 +30,35 @@ export default function Home() {
     fontWeight: '600',
   };
 
-  const editNft = () => {};
-  const deleteNft = () => {
-
+  const onDelete = (id) => {
+    setLoading(true);
+    dispatch(deleteNft(id)).then(
+      setLoading(false),
+      setVisible(false),
+      alert.show('Nft Successfully Deleted!', {
+        type: 'success',
+        timeout: 5000,
+      }),
+    );
   };
 
   return (
     <>
-      <PageHeader
-        className="site-page-header border border-bottom"
-        title="Ternoa"
-        subTitle="NFT MarketPlace"
-        extra={[
-          <Button key="3" type="text">Explore</Button>,
-          <Button key="2" type="text">Stats</Button>,
-          <Button key="1" type="text">
-            Resources
-          </Button>,
-        ]}
-      />
       <Title className="mt-5 text-center mb-5">Explore Collections</Title>
+
+      <Modal
+        title="Edit NFT"
+        centered
+        onCancel={() => {
+          setEditVisible(false);
+        }}
+        footer={false}
+        visible={editVisible}
+        width={1000}
+      >
+        <NewNft edit data={modalData} />
+
+      </Modal>
       <Modal
         title="NFT Detail"
         centered
@@ -53,10 +66,17 @@ export default function Home() {
           setVisible(false);
         }}
         footer={[
-          <Button key="back" onClick={editNft}>
+          <Button
+            key="back"
+            onClick={() => {
+              setVisible(false);
+              setEditVisible(true);
+            }}
+          >
             Edit
           </Button>,
-          <Button key="submit" type="danger" loading={loading} onClick={deleteNft}>
+          // eslint-disable-next-line
+          <Button key="submit" type="danger" loading={loading} onClick={() => { onDelete(modalData._id); }}>
             Delete
           </Button>,
         ]}
@@ -85,7 +105,8 @@ export default function Home() {
         {nfts.map((e) => (
           <Card
             hoverable
-            key={e.id}
+              // eslint-disable-next-line
+            key={e._id}
             style={{ width: 250 }}
             cover={(
               <div className="d-flex" style={{ overflow: 'hidden', height: '250px' }}>

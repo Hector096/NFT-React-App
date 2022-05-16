@@ -14,9 +14,10 @@ export default function nfts(state = initialState, action) {
 
   switch (type) {
     case NFT_UPDATE_SUCCESS:
+      const filteredNfts = state.nfts.filter((item) => item._id !== payload._id);
       return {
         ...state,
-        nfts: [...state.nfts, payload],
+        nfts: [...filteredNfts, payload],
       };
     case NFT_UPDATE_FAIL:
       return {
@@ -25,7 +26,8 @@ export default function nfts(state = initialState, action) {
     case NFT_DELETE_SUCCESS:
       return {
         ...state,
-        nfts: state.nfts.filter((item) => item.id !== payload),
+        // eslint-disable-next-line
+        nfts: state.nfts.filter((item) => item._id !== payload),
       };
     case NFT_DELETE_FAIL:
       return {
