@@ -18,7 +18,7 @@ export default function NewNft(props) {
   const { Option } = Select;
   const history = useHistory();
   const dispatch = useDispatch();
-  const { edit, data } = props;
+  const { edit, data, close } = props;
   useEffect(() => {
     form.resetFields();
     if (edit) {
@@ -44,6 +44,7 @@ export default function NewNft(props) {
               type: 'success',
               timeout: 5000,
             });
+            close();
           })
           .catch(() => {
             setLoading(false);

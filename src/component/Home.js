@@ -42,6 +42,10 @@ export default function Home() {
     );
   };
 
+  const closeEdit = () => {
+    setEditVisible(false);
+  };
+
   return (
     <>
       <Title className="mt-5 text-center mb-5">Explore Collections</Title>
@@ -56,7 +60,7 @@ export default function Home() {
         visible={editVisible}
         width={1000}
       >
-        <NewNft edit data={modalData} />
+        <NewNft edit data={modalData} close={closeEdit} />
 
       </Modal>
       <Modal

@@ -16,7 +16,9 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
-  const { connect, shouldDisable } = useMetaMask();
+  const {
+    connect, shouldDisable, disconnect, isActive, account,
+  } = useMetaMask();
   useEffect(() => {
     dispatch(clearMessage()); // clear message when changing location
   }, [dispatch, location]);
@@ -32,9 +34,15 @@ function App() {
           <Button key="1" type="text" onClick={() => { history.push('/nft/new'); }}>
             Add New
           </Button>,
-          <Button key="2" type="text" onClick={connect} disabled={shouldDisable}>Wallet</Button>,
         ]}
       />
+      <div className="text-center mt-3">
+        {isActive ? (<Button type="primary" onClick={disconnect}>Disconnect Wallet</Button>)
+          : (<Button type="primary" onClick={connect} disabled={shouldDisable}>Connect Wallet</Button>)}
+        <h6 key="5" className="mt-2">
+          { isActive ? `Connected Account: ${account}` : '' }
+        </h6>
+      </div>
       <Switch>
         <Route exact path={['/', '/home']} component={Home} />
         <Route exact path="/nft" component={Home} />

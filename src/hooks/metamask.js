@@ -2,7 +2,7 @@ import React, {
   useState, useEffect, useMemo, useCallback,
 } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { injected } from '../component/connectors';
+import injected from '../component/connectors';
 
 export const MetaMaskContext = React.createContext(null);
 
@@ -15,9 +15,22 @@ export const MetaMaskProvider = ({ children }) => {
   const [shouldDisable, setShouldDisable] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Connect to MetaMask wallet
+  const connect = async () => {
+    setShouldDisable(true);
+    try {
+      await activate(injected).then(() => {
+        setShouldDisable(false);
+      });
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
+  };
+
   // Init Loading
   useEffect(() => {
-    connect().then((val) => {
+    connect().then(() => {
       setIsLoading(false);
     });
   }, []);
@@ -31,22 +44,13 @@ export const MetaMaskProvider = ({ children }) => {
     handleIsActive();
   }, [handleIsActive]);
 
-  // Connect to MetaMask wallet
-  const connect = async () => {
-    setShouldDisable(true);
-    try {
-      await activate(injected).then(() => {
-        setShouldDisable(false);
-      });
-    } catch (error) {
-    }
-  };
-
   // Disconnect from Metamask wallet
   const disconnect = async () => {
     try {
       await deactivate();
     } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
     }
   };
 

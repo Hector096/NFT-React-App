@@ -14,6 +14,7 @@ export default function nfts(state = initialState, action) {
 
   switch (type) {
     case NFT_UPDATE_SUCCESS:
+      // eslint-disable-next-line
       const filteredNfts = state.nfts.filter((item) => item._id !== payload._id);
       return {
         ...state,

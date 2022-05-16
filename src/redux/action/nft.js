@@ -84,7 +84,6 @@ export const updateNft = (values, id) => (dispatch) => NftService.updateNft(valu
 
 export const fetchNfts = () => (dispatch) => NftService.fetchNfts().then(
   (response) => {
-    console.log(response.data);
     dispatch({
       type: NFT_FETCH_SUCCESS,
       payload: { nfts: response.data },
