@@ -11,7 +11,7 @@
 
 ## Screen-Shot
 
-![Screen Shot](./asset/screenshot.png)
+![Screen Shot](./assets/screenshot.png)
 
 ## Built With
 
