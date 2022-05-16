@@ -6,7 +6,7 @@
 
 ## Live Demo
 
-[FlipCart Website](https://deploy-preview-4--peaceful-meninsky-cc6a1e.netlify.app)
+[Ternoa](ternoanft.netlify.app/)
 
 
 ## Screen-Shot
