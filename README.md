@@ -18,6 +18,7 @@
 - React
 - JavaScript
 - CSS
+- Ant Design
 - Redux
 - VsCode
   
