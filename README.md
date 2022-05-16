@@ -20,7 +20,7 @@
 - CSS
 - Redux
 - VsCode
-
+  
 ## Getting Started
 
 To get a local copy of this project just do the following:
